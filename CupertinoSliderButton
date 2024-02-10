@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:zeekoihrm/bottomnavbar.dart';
+import 'package:zeekoihrm/loginpages/loginScreen_screen4.dart';
+import 'package:zeekoihrm/loginpages/loginpage_screen1.dart';
+import 'package:zeekoihrm/loginpages/loginpage_screen2.dart';
+import 'package:zeekoihrm/loginpages/loginpage_screen3.dart';
+
+class LoginPage_indexScreen extends StatefulWidget {
+  const LoginPage_indexScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage_indexScreen> createState() => _LoginPage_indexScreenState();
+}
+
+class _LoginPage_indexScreenState extends State<LoginPage_indexScreen> {
+  final PageController _pageController = PageController();
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+              // Check if it's the last screen
+            },
+            children: const [
+              LoginPageScreen1(),
+              LoginPageScreen2(),
+              LoginPageScreen3(),
+              LoginPageScreen4(),
+            ],
+          ),
+          Positioned(
+            bottom: 55,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildDot(currentIndex == 0),
+                    buildDot(currentIndex == 1),
+                    buildDot(currentIndex == 2),
+                    buildDot(currentIndex == 3),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                if (currentIndex < 3)
+                  TextButton(
+                    onPressed: () {
+                      _pageController.jumpToPage(currentIndex + 1);
+                    },
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                if (currentIndex == 3)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        PageTransition(
+                          child: const NavBar(),
+                          type: PageTransitionType.fade,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFDF0EC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11.02),
+                        side: const BorderSide(
+                            width: 1, color: Color(0xFF4865A9)),
+                      ),
+                      elevation: 4, // Adjust elevation as per your requirement
+                    ),
+                    child: const SizedBox(
+                      width: 198,
+                      height: 46.85,
+                      child: Center(
+                        child: Text(
+                          'Let’s Get Started',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildDot(bool isActive) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: isActive ? 12 : 8,
+      height: 8,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isActive ? Colors.blue : Colors.grey,
+      ),
+    );
+  }
+}

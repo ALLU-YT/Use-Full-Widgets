@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+class AttendanceDetails extends StatelessWidget {
+  const AttendanceDetails({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> dates = [
+      'Jan 1',
+      '08:50',
+      '08:50',
+      '08:50',
+      '08:50',
+      'GS/09:00-17:30'
+    ];
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _buildDateContainer('Date'),
+              _buildDateContainer('Clock in'),
+              _buildDateContainer('Delayed time'),
+              _buildDateContainer('Clock out'),
+              _buildDateContainer('Early time'),
+              _buildDateContainer('Shift'),
+            ],
+          ),
+          Row(
+            children: [
+              for (var date in dates) _buildDateContainer2(date),
+            ],
+          ),
+          Row(
+            children: [
+              for (var date in dates) _buildDateContainer2(date),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateContainer(String date) {
+    return Container(
+      width: 118,
+      height: 50,
+      margin: const EdgeInsets.only(right: 0),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: const Color(0xFFD9D9D9)),
+      ),
+      child: Center(
+        child: Text(
+          date,
+          style: const TextStyle(
+            color: Color(0xFF1B0044),
+            fontSize: 14.38,
+            fontFamily: 'Biryani',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDateContainer2(String text) {
+    return Container(
+      width: 118,
+      height: 50,
+      margin: const EdgeInsets.only(right: 0),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: const Color(0xFFD9D9D9)),
+      ),
+      child: Center(
+          child: Text(
+        text,
+        style: const TextStyle(
+          color: Color(0xFF1B0044),
+          fontSize: 14.38,
+          fontFamily: 'Biryani',
+          fontWeight: FontWeight.w400,
+          height: 0.15,
+        ),
+      )),
+    );
+  }
+}
