@@ -1,0 +1,31 @@
+import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
+import 'package:flutter/material.dart';
+
+class LoginPage5_RippleAnimation extends StatelessWidget {
+  const LoginPage5_RippleAnimation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: RippleAnimation(
+          size: const Size(150, 150),
+          key: UniqueKey(),
+          duration: const Duration(milliseconds: 2300),
+          ripplesCount: 10,
+          color: const Color(0x99D1D1D1),
+          repeat: true,
+          minRadius: 100, // Specify width and height for the size
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.asset(
+              'assets/HRM LOGO 1.png',
+              width: 100,
+              height: 100,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
