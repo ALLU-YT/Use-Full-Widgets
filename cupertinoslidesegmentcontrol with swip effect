@@ -1,0 +1,126 @@
+class Approvals extends StatefulWidget {
+  const Approvals({Key? key}) : super(key: key);
+
+  @override
+  State<Approvals> createState() => _OrganizationState();
+}
+
+class _OrganizationState extends State<Approvals> {
+  int selectedIndex = 0;
+  late PageController _pageController;
+  final Map<int, Widget> screens = {
+    0: const Screen1(),
+    1: const Screen2(),
+    2: const Screen3(),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: selectedIndex);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(PageTransition(
+                      child: const ProfileScreen(),
+                      type: PageTransitionType.fade));
+                },
+                child: const CircleAvatar()),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              'My Requests',
+              style: TextStyle(
+                color: Color(0xFF1B0044),
+                fontSize: 17,
+                fontFamily: 'Biryani',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 25,
+          ),
+          Center(
+            child: CupertinoSlidingSegmentedControl(
+              thumbColor: const Color.fromARGB(158, 19, 3, 237),
+              groupValue: selectedIndex,
+              backgroundColor: const Color(0xFFF2F2F2),
+              children: {
+                0: buildSegment('Pending', 'assets/pending 1.png'),
+                1: buildSegment('Approved', 'assets/Layer 2 (1).png'),
+                2: buildSegment('Rejected', 'assets/73-Contract.png'),
+              },
+              onValueChanged: (int? index) {
+                if (index != null) {
+                  setState(() {
+                    selectedIndex = index;
+                    _pageController.animateToPage(
+                      selectedIndex,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  });
+                }
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (int index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              children: const [Screen1(), Screen2(), Screen3()],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildSegment(String text, String imageString) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        children: [
+          Image.asset(
+            imageString,
+            width: 24,
+          ),
+          const SizedBox(
+            width: 2,
+          ),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 228, 224, 224),
+              fontSize: 12,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
