@@ -1,0 +1,51 @@
+horizondalSlidableButton
+
+HorizontalSlidableButton(
+      width: MediaQuery.of(context).size.width * 0.7,
+      height: 60,
+      buttonWidth: 60,
+      color: buttonColor2,
+      dismissible: false,
+      label: Center(child: appImage),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Center(
+          child: Text(
+            appContent,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.76,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              height: 0,
+            ),
+          ),
+        ),
+      ),
+      onChanged: (position) {
+        setState(() {
+          if (position == SlidableButtonPosition.end) {
+            // Button is on the right
+            result = 'Button is on the right';
+            buttonLabel = 'Slide Right';
+            appContent = 'Slide to check Out';
+            appImage = Image.asset(
+              'assets/Mask group (1).png',
+              width: 100,
+            );
+            buttonColor2 = Color.fromARGB(255, 18, 231, 22);
+          } else if (position == SlidableButtonPosition.start) {
+            // Button is on the left
+            result = 'Button is on the left';
+            appContent = 'Slide to check in';
+            buttonLabel = 'Slide Me';
+            buttonColor2 = Color(0xFFFB644B);
+          } else {
+            // Button is in the center
+            // Adjust the text accordingly
+            appContent = 'Slide to interact';
+            // You may need to adjust other properties as needed
+          }
+        });
+      },
+    )

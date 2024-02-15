@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import 'package:slidable_button/slidable_button.dart';
+
+class YourWidget extends StatefulWidget {
+  @override
+  _YourWidgetState createState() => _YourWidgetState();
+}
+
+class _YourWidgetState extends State<YourWidget> {
+  String result = ''; // Declare a variable to store the result
+  String buttonLabel = 'Slide Me';
+  String appContent = 'Slide to check In';
+  Color buttonColor2 = Color(0xFFFB644B);
+  Image appImage = Image.asset(
+    'assets/Mask group.png',
+    width: 100,
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: HorizontalSlidableButton(
+        width: MediaQuery.of(context).size.width * .7,
+        height: 60,
+        buttonWidth: 60,
+        color: buttonColor2,
+        // buttonColor: buttonColor,
+        dismissible: false,
+        label: Center(child: appImage),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Center(
+            child: Text(
+              appContent,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.76,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                height: 0,
+              ),
+            ),
+          ),
+        ),
+        onChanged: (position) {
+          setState(() {
+            if (position == SlidableButtonPosition.end) {
+              result = 'Button is on the right';
+              buttonLabel = 'Slide Right';
+              appContent = 'Slide to check Out';
+              appImage = Image.asset(
+                'assets/Mask group (1).png',
+                width: 100,
+              );
+
+              buttonColor2 = Color.fromARGB(255, 89, 236, 9);
+            } else {
+              result = 'Button is on the left';
+              appContent = 'Slide to check in';
+              buttonLabel = 'Slide Me';
+              buttonColor2 = Color(0xFFFB644B);
+            }
+          });
+        },
+      ),
+    );
+  }
+}

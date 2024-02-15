@@ -1,0 +1,216 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class Organization extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<Organization> {
+  int selectedIndex = 0;
+
+  final Map<int, Widget> screens = {
+    0: Screen1(),
+    1: Screen2(),
+    2: Screen3(),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Segmented Controller Example'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              child: screens[selectedIndex],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    100), // Set the desired border radius for all sides
+              ),
+              width: 500,
+              height: 100,
+              padding: EdgeInsets.all(20),
+              child: CupertinoSegmentedControl<int>(
+                children: {
+                  0: buildSegment('Slide 1'),
+                  1: buildSegment('Slide 2'),
+                  2: buildSegment('Slide 3'),
+                },
+                onValueChanged: (int index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                groupValue: selectedIndex,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildSegment(String text) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+            50), // Set the desired border radius for all sides
+      ),
+      padding: EdgeInsets.all(12),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 15),
+      ),
+    );
+
+class Screen1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [Text("data"), Text("data")],
+    );
+  }
+}
+
+class Screen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blue,
+      child: Center(
+        child: Text('Screen 2 Content'),
+      ),
+    );
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      child: Center(
+        child: Text('Screen 3 Content'),
+      ),
+    );
+  }
+}
+
+
+
+
+_____________________________________________________________________________________
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class Organization extends StatefulWidget {
+  const Organization({Key? key}) : super(key: key);
+
+  @override
+  State<Organization> createState() => _OrganizationState();
+}
+
+class _OrganizationState extends State<Organization> {
+  int selectedIndex = 0;
+
+  final Map<int, Widget> screens = {
+    0: Screen1(),
+    1: Screen2(),
+    2: Screen3(),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: selectedIndex == 0
+                  ? Text("data")
+                  : selectedIndex == 1
+                      ? Text("dddd")
+                      : Text('three'),
+            ),
+          ),
+          Center(
+            child: CupertinoSlidingSegmentedControl(
+              groupValue: selectedIndex,
+              backgroundColor: Colors.green,
+              children: {
+                0: buildSegment('Slide 1'),
+                1: buildSegment('Slide 2'),
+                2: buildSegment('Slide 3'),
+              },
+              onValueChanged: (int? index) {
+                if (index != null) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildSegment(String text) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+      ),
+      padding: EdgeInsets.all(12),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 15),
+      ),
+    );
+
+class Screen1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [Text("data"), Text("data")],
+    );
+  }
+}
+
+class Screen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blue,
+      child: Center(
+        child: Text('Screen 2 Content'),
+      ),
+    );
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      child: Center(
+        child: Text('Screen 3 Content'),
+      ),
+    );
+  }
+}
+
