@@ -1,0 +1,103 @@
+import 'package:flutter/material.dart';
+
+class BooskingPage extends StatefulWidget {
+  const BooskingPage({super.key});
+
+  @override
+  State<BooskingPage> createState() => _BooskingPageState();
+}
+
+class _BooskingPageState extends State<BooskingPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            GestureDetector(onTap: () {}, child: const CircleAvatar()),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              'My Requests',
+              style: TextStyle(
+                color: Color(0xFF1B0044),
+                fontSize: 17,
+                fontFamily: 'Biryani',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+        bottom: TabBar(
+          controller: _tabController,
+          labelColor: Colors.red,
+          unselectedLabelColor: Colors.black,
+          indicatorColor: Colors.red,
+          tabs: const [
+            Tab(text: 'Pending'),
+            Tab(text: 'Approved'),
+            Tab(text: 'Rejected'),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          Screen1(),
+          Screen2(),
+          Screen3(),
+        ],
+      ),
+    );
+  }
+}
+
+class Screen1 extends StatelessWidget {
+  const Screen1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Pending Requests'),
+    );
+  }
+}
+
+class Screen2 extends StatelessWidget {
+  const Screen2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Approved Requests'),
+    );
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  const Screen3({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Rejected Requests'),
+    );
+  }
+}
